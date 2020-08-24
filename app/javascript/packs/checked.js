@@ -11,7 +11,6 @@ function check(){
       const XHR = new XMLHttpRequest();                   // リクエスト送信オブジェクト生成
       XHR.open("GET", `/posts/${postId}`, true);          // HTTPメソッドとエンドポイントと非同期通信か否かを指定
       XHR.responseType = "json";                          // レスポンスのデータ形式を指定
-      console.log(XHR);
       XHR.send();                                         // リクエスト送信
       XHR.onload = () => {                                // レスポンス受信のイベント検知したら
         if (XHR.status != 200) {                          // レスポンスが正常でなかった場合
