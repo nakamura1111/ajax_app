@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :basic_auth
+
   def index
     @posts = Post.all.order(id: "DESC")
   end
@@ -21,5 +23,15 @@ class PostsController < ApplicationController
     
     item = Post.find(params[:id])
     render json: {post: item}               # json 形式で出力
+  end
+
+  private
+
+  def basic_auth                            # BASIC認証のメソッド
+    authenticate_or_request_with_http_basic do |username, password|
+      # binding.pry
+      username == ENV["BASIC_AUTH_USER"] && password == ENV["BASIC_AUTH_PASSWORD"]    # 環境変数を代入
+      # username == "admin" && password == "2222"
+    end
   end
 end
